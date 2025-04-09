@@ -62,7 +62,8 @@ class AppAnalyser {
   Timer? _timer;
   DateTime? _startedAt;
   AnalysisInfo? _info;
-  Future<AnalysisInfoInterface> start() async {
+  Future<AnalysisInfoInterface> start(
+      [Duration? customMeasurementFrequency]) async {
     if (_timer != null || _startedAt != null) {
       throw AnalysisInProgressException();
     }
@@ -70,7 +71,7 @@ class AppAnalyser {
     _startedAt = DateTime.now();
     _collectData();
     _timer = Timer.periodic(
-      measurementFrequency,
+      customMeasurementFrequency ?? measurementFrequency,
       (_) => _collectData(),
     );
 
